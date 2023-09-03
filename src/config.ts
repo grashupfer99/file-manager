@@ -8,3 +8,8 @@ export const PAGE_TITLES = {
 };
 
 export const DOMAIN_ADDRESS = "localhost";
+
+export const LINKS_ENDPOINT = {
+  PROXY: "/api",
+  URL: "https://storage-fe.fastraffic.io/links.json",
+};
