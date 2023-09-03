@@ -120,7 +120,7 @@ const TableRow: FC<{ link: ILink }> = memo(function TRow({ link }) {
           </Box>
         </HStack>
       </Td>
-      <Td fontSize="sm" color="gray.500">
+      <Td data-pw="totalFiles" fontSize="sm" color="gray.500">
         {formatNumberWithCommas(link.files.length)}
       </Td>
       <Td fontSize="sm" color="gray.500">
