@@ -15,23 +15,26 @@ import {
 } from "@chakra-ui/react";
 // hooks
 import { usePageTitle } from "hooks";
-
+// utils
+import { formatFileSize, formatTimestamp, formatNumberWithCommas } from "utils";
 // config
 import { DOMAIN_ADDRESS, PAGE_TITLES } from "config";
 // paths
 import { NOT_FOUND } from "routes/paths";
 // ----------------------------------------------------------------------
 
+interface Link extends ILink {
+  isExpired: boolean;
+}
+
 interface RouterState {
-  state: ILink | undefined;
+  state: Link | undefined;
 }
 // ----------------------------------------------------------------------
 
 const Link: FC = () => {
   const { linkId } = useParams<{ linkId: string }>();
   const { state } = useLocation() as RouterState;
-  console.log("linkId ", linkId);
-  console.log("location ", state);
   usePageTitle(PAGE_TITLES.LINK + " " + state?.key);
 
   if (!state || (state.key && state.key !== linkId))
@@ -102,7 +105,7 @@ const Link: FC = () => {
               Link Creation Date
             </Text>
             <Text fontSize="sm" mb={6}>
-              {state.created_at}
+              {formatTimestamp(state.created_at)}
             </Text>
             <Text fontSize="sm" fontWeight="bold" color="gray.500">
               Content
@@ -114,7 +117,7 @@ const Link: FC = () => {
               Download Count
             </Text>
             <Text fontSize="sm" mb={6}>
-              {state.download_count}
+              {formatNumberWithCommas(state.download_count)}
             </Text>
           </Box>
           <Box flex="1">
@@ -137,10 +140,12 @@ const Link: FC = () => {
             {state.files.length === 1 ? "" : "s"}
           </Text>
           <Text fontSize="sm" fontWeight="bold" color="gray.500">
-            1.00 MB
+            {formatFileSize(
+              state.files.reduce((acc, _file) => acc + _file.size, 0)
+            )}
           </Text>
         </Box>
-        {state.files.length === 0
+        {state.isExpired || state.files.length === 0
           ? null
           : state.files.map((file, index) => (
               <Box key={file.key} mb={state.files.length - 1 === index ? 3 : 0}>
@@ -156,7 +161,7 @@ const Link: FC = () => {
                     {file.name}
                   </Text>
                   <Text fontSize="sm" ml="auto">
-                    {file.size}
+                    {formatFileSize(file.size)}
                   </Text>
                 </Box>
               </Box>

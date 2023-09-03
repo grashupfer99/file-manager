@@ -16,7 +16,6 @@ import { PAGE_TITLES } from "config";
 const Home: FC = () => {
   usePageTitle(PAGE_TITLES.HOME);
   const loaderData = useLoaderData() as { links: ILink[] };
-  console.log("loaderData ", loaderData);
 
   return (
     <Container py={12} maxWidth="container.lg">

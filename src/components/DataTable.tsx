@@ -1,5 +1,5 @@
 // core
-import { FC } from "react";
+import { FC, memo } from "react";
 import { useNavigate } from "react-router-dom";
 // components
 import {
@@ -17,10 +17,21 @@ import {
 } from "@chakra-ui/react";
 // svg
 import fileIcon from "assets/file.svg";
+// hooks
+import { useValidityPeriod } from "hooks";
+// utils
+import {
+  copyUrlToClipboard,
+  truncateText,
+  formatNumberWithCommas,
+  formatFileSize,
+} from "utils";
 // consts
 import { LINK } from "routes/paths";
 import { DOMAIN_ADDRESS } from "config";
 
+// ----------------------------------------------------------------------
+const REFRESH_INTERVAL_MS = 10000;
 // ----------------------------------------------------------------------
 
 const DataTable: FC<{ data: ILink[]; cols?: string[] }> = ({
@@ -65,15 +76,21 @@ const TableHead: FC<{ cols: string[] }> = ({ cols }) => {
   );
 };
 
-const TableRow: FC<{ link: ILink }> = ({ link }) => {
+const TableRow: FC<{ link: ILink }> = memo(function TRow({ link }) {
   const navigate = useNavigate();
+  const { validityPeriod } = useValidityPeriod({
+    expiryTimestamp: link.expires_at,
+    refreshIntervalMs: REFRESH_INTERVAL_MS,
+  });
+  const linkUrl = `${DOMAIN_ADDRESS}/${link.key}`;
 
-  const linkUrl = DOMAIN_ADDRESS + "/" + link.key;
   return (
     <Tr
       key={link.key}
       onClick={() => {
-        navigate(LINK + "/" + link.key, { state: link });
+        navigate(LINK + "/" + link.key, {
+          state: { ...link, isExpired: validityPeriod === "Expired" },
+        });
       }}
     >
       <Td>
@@ -88,22 +105,32 @@ const TableRow: FC<{ link: ILink }> = ({ link }) => {
             <Text
               fontSize="sm"
               cursor="pointer"
-              decoration="underline"
-              color="gray.500"
+              decoration={validityPeriod !== "Expired" ? "underline" : "unset"}
+              color={validityPeriod === "Expired" ? "red.500" : "gray.500"}
+              onClick={(e) => {
+                e.stopPropagation();
+                // eslint-disable-next-line @typescript-eslint/no-floating-promises
+                if (validityPeriod !== "Expired") copyUrlToClipboard(linkUrl);
+              }}
             >
-              {linkUrl}
+              {validityPeriod !== "Expired"
+                ? truncateText(linkUrl, 30)
+                : validityPeriod}
             </Text>
           </Box>
         </HStack>
       </Td>
       <Td fontSize="sm" color="gray.500">
-        {link.files.length}
+        {formatNumberWithCommas(link.files.length)}
       </Td>
       <Td fontSize="sm" color="gray.500">
-        {link.size}
+        {formatFileSize(link.size)}
       </Td>
-      <Td fontSize="sm" color="gray.500">
-        {link.expires_at}
+      <Td
+        fontSize="sm"
+        color={validityPeriod === "Expired" ? "red.500" : "gray.500"}
+      >
+        {validityPeriod}
       </Td>
       <Td>
         <Avatar
@@ -114,6 +141,6 @@ const TableRow: FC<{ link: ILink }> = ({ link }) => {
       </Td>
     </Tr>
   );
-};
+});
 
 export default DataTable;
