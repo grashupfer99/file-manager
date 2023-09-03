@@ -39,7 +39,7 @@ The project has been bootstrapped with [Vite.](https://vitejs.dev/)
 
 ## Project Structure
 
-```json
+```
 ├── e2e/
 ├── http/ // http requests using VS Code extension: REST Client
 ├── public/
