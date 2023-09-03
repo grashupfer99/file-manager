@@ -1,27 +1,75 @@
-# React + TypeScript + Vite
+# File Manager
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+The project has been bootstrapped with [Vite.](https://vitejs.dev/)
 
-Currently, two official plugins are available:
+## Scripts
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Development
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
+```json
+  "dev": "vite",
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+### Lint
+
+```json
+   "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+```
+
+### Unit Tests
+
+```json
+   "test": "vitest run",
+   "test:watch": "vitest watch",
+```
+
+### E2E Tests
+
+```json
+   "test:e2e:debug": "playwright test --debug",
+   "test:e2e": "playwright test",
+```
+
+### Build & Serve
+
+```json
+   "build": "tsc && vite build",
+   "preview": "vite preview"
+```
+
+## Project Structure
+
+```json
+├── e2e/
+├── http/ // http requests using VS Code extension: REST Client
+├── public/
+├── src
+│   ├── App.tsx
+│   ├── __tests__
+│   ├── api/
+│   ├── assets/
+│   ├── components/
+│   ├── hooks/
+│   ├── pages/
+│   ├── routes/
+│   ├── types/
+│   ├── utils/
+│   ├── main.tsx
+│   └── config.ts
+├── index.html
+├── playwright-report/
+├── package.json
+├── pnpm-lock.yaml
+├── tsconfig.json
+├── tsconfig.node.json
+├── playwright.config.ts
+├── vite.config.ts
+└── README.md
+```
+
+### Packages
+
+- UI: `@chakra-ui/react, @emotion/react, @emotion/styled, framer-motion`
+- Router: `react-router-dom`
+- Unit testing: `vitest`
+- E2E testing: `playwright`
