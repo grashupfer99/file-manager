@@ -26,6 +26,7 @@ interface ILink {
   summary: string;
   /**  Thumbnail URL of the link */
   thumbnailUrl: string;
+  /** List of link's files */
   files: IFile[];
   sent: {
     /** Email subject when sharing the link */
