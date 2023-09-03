@@ -1,63 +1,80 @@
 # File Manager
 
+- Description: Single Page web app for file sharing link management.
+
+---
+
 The project has been bootstrapped with [Vite.](https://vitejs.dev/)
+
+## Prerequisites
+
+- node >=18
+- pnpm >=8
+  - `npm install -g pnpm`, [pnpm docs](https://pnpm.io/installation)
 
 ## Scripts
 
+### Installation
+
+```
+   pnpm install
+```
+
 ### Development
 
-```json
-  "dev": "vite",
+```
+  pnpm dev
 ```
 
 ### Lint
 
-```json
-   "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+```
+   pnpm lint
 ```
 
 ### Unit Tests
 
-```json
-   "test": "vitest run",
-   "test:watch": "vitest watch",
+```
+   pnpm test
+   pnpm test:watch
 ```
 
 ### E2E Tests
 
-```json
-   "test:e2e:debug": "playwright test --debug",
-   "test:e2e": "playwright test",
+```
+   pnpm test:e2e:debug
+   pnpm test:e2e
 ```
 
 ### Build & Serve
 
-```json
-   "build": "tsc && vite build",
-   "preview": "vite preview"
+```
+   pnpm build
+   pnpm preview
 ```
 
 ## Project Structure
 
 ```
-├── e2e/
-├── http/ // http requests using VS Code extension: REST Client
-├── public/
+├── e2e
+├── http # http request playground
+├── public
 ├── src
-│   ├── App.tsx
 │   ├── __tests__
-│   ├── api/
-│   ├── assets/
-│   ├── components/
-│   ├── hooks/
-│   ├── pages/
-│   ├── routes/
-│   ├── types/
-│   ├── utils/
+│   ├── api
+│   ├── assets
+│   ├── components
+│   ├── hooks
+│   ├── pages
+│   ├── routes
+│   ├── types
+│   ├── utils
+│   ├── App.tsx
 │   ├── main.tsx
 │   └── config.ts
 ├── index.html
-├── playwright-report/
+├── .eslintrc.cjs
+├── playwright-report
 ├── package.json
 ├── pnpm-lock.yaml
 ├── tsconfig.json
@@ -73,3 +90,7 @@ The project has been bootstrapped with [Vite.](https://vitejs.dev/)
 - Router: `react-router-dom`
 - Unit testing: `vitest`
 - E2E testing: `playwright`
+
+### Recommended VS Code Extensions
+
+- [REST Client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client)
