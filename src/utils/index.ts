@@ -1,8 +1,8 @@
 // ----------------------------------------------------------------------
 export function formatFileSize(bytes: number) {
   if (isNaN(bytes)) return "";
-  const sizes = ["Bytes", "KB", "MB", "GB", "TB"];
-  if (bytes === 0) return "0 Bytes";
+  const sizes = ["B", "KB", "MB", "GB", "TB"];
+  if (bytes === 0) return "0 B";
 
   const i = Math.floor(Math.log(bytes) / Math.log(1024));
   return (bytes / Math.pow(1024, i)).toFixed(2) + " " + sizes[i];
@@ -40,7 +40,7 @@ export function formatTimestamp(timestamp: number) {
     hour: "2-digit",
     minute: "2-digit",
     second: "2-digit",
-    timeZoneName: "short",
+    timeZoneName: "longOffset",
   };
 
   return date.toLocaleString("en-US", options);

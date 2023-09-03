@@ -12,7 +12,7 @@ import { it, expect, describe } from "vitest";
 // formatFileSize
 describe("__formatFileSize__", () => {
   const TEST_CASES = [
-    { input: 0, expected: "0 Bytes" },
+    { input: 0, expected: "0 B" },
     { input: 1024, expected: "1.00 KB" },
     { input: 2048, expected: "2.00 KB" },
     { input: 10860, expected: "10.61 KB" },
@@ -24,8 +24,8 @@ describe("__formatFileSize__", () => {
     { input: 2147483648, expected: "2.00 GB" },
     { input: 1099511627776, expected: "1.00 TB" },
     { input: 2199023255552, expected: "2.00 TB" },
-    { input: 512, expected: "512.00 Bytes" },
-    { input: 768, expected: "768.00 Bytes" },
+    { input: 512, expected: "512.00 B" },
+    { input: 768, expected: "768.00 B" },
     { input: undefined, expected: "" },
   ];
   TEST_CASES.forEach(({ input, expected }, i) => {
@@ -67,11 +67,11 @@ describe("__formatNumberWithCommas__", () => {
     { input: 12345, expected: "12,345" },
     { input: 123456, expected: "123,456" },
     { input: 1234567, expected: "1,234,567" },
-    { input: 0.5, expected: "0.5" }, // Decimal values
+    { input: 0.5, expected: "0.5" },
     { input: 10000.5, expected: "10,000.5" },
-    { input: null, expected: "" }, // Null input
-    { input: undefined, expected: "" }, // Undefined input
-    { input: "", expected: "" }, // Empty string input
+    { input: null, expected: "" },
+    { input: undefined, expected: "" },
+    { input: "", expected: "" },
   ];
 
   TEST_CASES.forEach(({ input, expected }) => {
@@ -136,19 +136,19 @@ describe("__formatTimestamp__", () => {
   const TEST_CASES = [
     {
       input: 1693239694,
-      expected: "Tue, Aug 29, 2023, 01:21:34 AM GMT+9",
+      expected: "Tue, Aug 29, 2023, 01:21:34 AM GMT+09:00",
     },
     {
       input: 1693241001,
-      expected: "Tue, Aug 29, 2023, 01:43:21 AM GMT+9",
+      expected: "Tue, Aug 29, 2023, 01:43:21 AM GMT+09:00",
     },
     {
       input: 1304246400,
-      expected: "Sun, May 01, 2011, 07:40:00 PM GMT+9",
+      expected: "Sun, May 01, 2011, 07:40:00 PM GMT+09:00",
     },
     {
       input: 0,
-      expected: "Thu, Jan 01, 1970, 09:00:00 AM GMT+9",
+      expected: "Thu, Jan 01, 1970, 09:00:00 AM GMT+09:00",
     },
     {
       input: undefined,
